@@ -73,7 +73,7 @@ screenshots above).
 ## Task 3 — Deploy at least 3 different application types
 
 **Node.js**, **Python** and **Java** were each built into an image and run as a container
-(the same apps as in the [Docker Hello World](../docker-hello-world/) task):
+(the same apps as in the [Docker Hello World](../docker-fundamentals/) task):
 
 | App | Image | Host port | Response |
 |---|---|---|---|
