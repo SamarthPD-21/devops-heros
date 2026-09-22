@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: campus-ingress-hybrid
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    # Virtual host 1: Student portal -> Frontend Nginx on path /
+    - host: portal.campus.local
+      http:
+        paths:
+          - path: /()(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: yatri-frontend-service
+                port:
+                  number: 80
+
+    # Virtual host 2: Backend REST API -> Python API on path /api/
+    - host: api.campus.local
+      http:
+        paths:
+          - path: /api(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: yatri-backend-service
+                port:
+                  number: 80
